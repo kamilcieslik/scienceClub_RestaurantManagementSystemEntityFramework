@@ -1,49 +1,44 @@
 ﻿using KamilCieślikLab4PD.Model;
 using KamilCieślikLab4PD.Repository;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using KamilCieślikLab4PD.Repository.Commands;
+using KamilCieślikLab4PD.Repository.Queries;
 
 namespace KamilCieślikLab4PD
 {
     public partial class MainFrame : Form
     {
-        private KamilCieślikLab4PDContext context;
-        private readonly ReadRepository<Seller> readSellerRepository;
-        private readonly ReadRepository<Supplier> readSupplierRepository;
-        private readonly ReadRepository<Supply> readSupplyRepository;
-        private readonly ReadRepository<MenuProduct> readMenuProductRepository;
-        private readonly ReadRepository<Order> readOrderRepository;
+        private readonly KamilCieślikLab4PdContext _context;
+        private readonly ReadRepository<Seller> _readSellerRepository;
+        private readonly ReadRepository<Supplier> _readSupplierRepository;
+        private readonly ReadRepository<Supply> _readSupplyRepository;
+        private readonly ReadRepository<MenuProduct> _readMenuProductRepository;
+        private readonly ReadRepository<Order> _readOrderRepository;
 
-        private readonly WriteRepository<Seller> writeSellerRepository;
-        private readonly WriteRepository<Supplier> writeSupplierRepository;
-        private readonly WriteRepository<Supply> writeSupplyRepository;
-        private readonly WriteRepository<MenuProduct> writeMenuProductRepository;
-        private readonly WriteRepository<Order> writeOrderRepository;
+        private readonly WriteRepository<Seller> _writeSellerRepository;
+        private readonly WriteRepository<Supplier> _writeSupplierRepository;
+        private readonly WriteRepository<Supply> _writeSupplyRepository;
+        private readonly WriteRepository<MenuProduct> _writeMenuProductRepository;
+        private readonly WriteRepository<Order> _writeOrderRepository;
 
-        private string currentTable;
+        private string _currentTable;
 
         public MainFrame()
         {
-            context = new KamilCieślikLab4PDContext();
-            //context.Database.CreateIfNotExists();
-            readSellerRepository = new ReadRepository<Seller>(context);
-            readSupplierRepository = new ReadRepository<Supplier>(context);
-            readSupplyRepository = new ReadRepository<Supply>(context);
-            readMenuProductRepository = new ReadRepository<MenuProduct>(context);
-            readOrderRepository = new ReadRepository<Order>(context);
+            _context = new KamilCieślikLab4PdContext();
+            _readSellerRepository = new ReadRepository<Seller>(_context);
+            _readSupplierRepository = new ReadRepository<Supplier>(_context);
+            _readSupplyRepository = new ReadRepository<Supply>(_context);
+            _readMenuProductRepository = new ReadRepository<MenuProduct>(_context);
+            _readOrderRepository = new ReadRepository<Order>(_context);
 
-            writeSellerRepository = new WriteRepository<Seller>(context);
-            writeSupplierRepository = new WriteRepository<Supplier>(context);
-            writeSupplyRepository = new WriteRepository<Supply>(context);
-            writeMenuProductRepository = new WriteRepository<MenuProduct>(context);
-            writeOrderRepository = new WriteRepository<Order>(context);
+            _writeSellerRepository = new WriteRepository<Seller>(_context);
+            _writeSupplierRepository = new WriteRepository<Supplier>(_context);
+            _writeSupplyRepository = new WriteRepository<Supply>(_context);
+            _writeMenuProductRepository = new WriteRepository<MenuProduct>(_context);
+            _writeOrderRepository = new WriteRepository<Order>(_context);
 
             InitializeComponent();
         }
@@ -53,7 +48,7 @@ namespace KamilCieślikLab4PD
         {
             try
             {
-                Seller seller = new Seller()
+                var seller = new Seller()
                 {
                     Name = textBoxSellerName.Text,
                     Surname = textBoxSellerSurname.Text,
@@ -61,12 +56,12 @@ namespace KamilCieślikLab4PD
                     EnglishLevel = comboBoxSellerEnglishLevel.Text,
                     Password = textBoxSellerPassword.Text
                 };
-                writeSellerRepository.Create(seller);
+                _writeSellerRepository.Create(seller);
                 ShowSellers();
             }
             catch (Exception)
             {
-                MessageBox.Show("Błędne/niepełne dane sprzedawcy!");
+                MessageBox.Show(@"Błędne/niepełne dane sprzedawcy!");
             }
             ClearTextBoxes();
         }
@@ -75,71 +70,68 @@ namespace KamilCieślikLab4PD
         {
             try
             {
-                Supplier supplier = new Supplier()
+                var supplier = new Supplier()
                 {
                     Name = textBoxSupplierName.Text,
                     Localization = comboBoxSupplierLocalization.Text,
                     DeliveryTime = int.Parse(textBoxSupplierDeliveryTime.Text)
                 };
-                writeSupplierRepository.Create(supplier);
+                _writeSupplierRepository.Create(supplier);
                 ShowSuppliers();
             }
             catch (Exception)
             {
-                MessageBox.Show("Błędne/niepełne dane dostawcy!");
+                MessageBox.Show(@"Błędne/niepełne dane dostawcy!");
             }
             ClearTextBoxes();
         }
 
         private void buttonAddNewSupply_Click(object sender, EventArgs e)
         {
-            string supplierID;
-
-            if ((currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                supplierID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                var supplierId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
                 try
                 {
-                    Supply supply = new Supply()
+                    var supply = new Supply()
                     {
                         Date = DateTime.Parse(textBoxSupplyDate.Text),
                         OrderedProduct = textBoxSupplyOrderedProduct.Text,
                         Price = int.Parse(textBoxSupplyPrice.Text),
-                        ProviderID = int.Parse(supplierID)
+                        ProviderID = int.Parse(supplierId)
                     };
-                    writeSupplyRepository.Create(supply);
+                    _writeSupplyRepository.Create(supply);
                     ShowSupplies();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Błędne/niepełne dane dostawy!");
+                    MessageBox.Show(@"Błędne/niepełne dane dostawy!");
                 }
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Pamietaj o wyborze dostawcy przed dodaniem sfinaliowaniem dostawy!");
+                MessageBox.Show(@"Pamietaj o wyborze dostawcy przed dodaniem sfinaliowaniem dostawy!");
             }
-
         }
 
         private void buttonAddProductMenu_Click(object sender, EventArgs e)
         {
             try
             {
-                MenuProduct menuProduct = new MenuProduct()
+                var menuProduct = new MenuProduct()
                 {
                     Category = comboBoxMenuProductCategory.Text,
                     Name = textBoxMenuProductName.Text,
                     AmountOfCalories = int.Parse(textBoxMenuProductAmountOfCalories.Text),
                     Price = int.Parse(textBoxMenuProductPrice.Text)
                 };
-                writeMenuProductRepository.Create(menuProduct);
+                _writeMenuProductRepository.Create(menuProduct);
                 ShowMenuProducts();
             }
             catch (Exception)
             {
-                MessageBox.Show("Błędne/niepełne dane produktu menu!");
+                MessageBox.Show(@"Błędne/niepełne dane produktu menu!");
             }
             ClearTextBoxes();
         }
@@ -206,164 +198,155 @@ namespace KamilCieślikLab4PD
             comboBoxMenuProductsSortBy.SelectedIndex = -1;
             comboBoxShowByMenuProductCategory.SelectedIndex = -1;
 
-            labelProfit.Text = "-";
-            labelGain.Text = "-";
-            labelCostOfSupplies.Text = "-";
-            labelAverageDeliveryTime.Text = "-";
-            labelMostExpensiveOrder.Text = "-";
-            labelAverageYearsOfExperience.Text = "-";         
+            labelProfit.Text = @"-";
+            labelGain.Text = @"-";
+            labelCostOfSupplies.Text = @"-";
+            labelAverageDeliveryTime.Text = @"-";
+            labelMostExpensiveOrder.Text = @"-";
+            labelAverageYearsOfExperience.Text = @"-";
         }
 
         //Metody wyświetlające obiekty tabel z bazy danych w DataGridView
         public void ShowSellers()
         {
             dataGridViewRestaurantManagementSystem.DataSource = null;
-            dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository
+            dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository
                 .GetAll()
                 .Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Imie_Sprzedawcy = x.Name,
                     Nazwisko = x.Surname,
                     Lata_Doswiadczenia = x.YearsOfExperience,
                     Znajomosc_Angielskiego = x.EnglishLevel,
                 }).ToList();
-            currentTable = "sellers";
+            _currentTable = "sellers";
         }
 
         public void ShowSuppliers()
         {
             dataGridViewRestaurantManagementSystem.DataSource = null;
-            dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository
+            dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository
                 .GetAll()
                 .Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Nazwa = x.Name,
                     Lokalizacja = x.Localization,
                     Czas_Dostaw = x.DeliveryTime,
                 }).ToList();
-            currentTable = "suppliers";
+            _currentTable = "suppliers";
         }
 
         public void ShowSupplies()
         {
             dataGridViewRestaurantManagementSystem.DataSource = null;
-            dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository
+            dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository
                 .GetAll()
                 .Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Data_Zamowienia = x.Date,
                     Zamowiony_Produkt = x.OrderedProduct,
                     Cena = x.Price,
-                    Dostawca = readSupplierRepository.GetByID(x.ProviderID).Name
+                    Dostawca = _readSupplierRepository.GetByID(x.ProviderID).Name
                 }).ToList();
-            currentTable = "supplies";
+            _currentTable = "supplies";
         }
 
         public void ShowMenuProducts()
         {
             dataGridViewRestaurantManagementSystem.DataSource = null;
-            dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository
+            dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository
                 .GetAll()
                 .Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Kategoria = x.Category,
                     Nazwa = x.Name,
                     Ilosc_Kcal = x.AmountOfCalories,
                     Cena = x.Price
                 }).ToList();
-            currentTable = "menuproducts";
-
+            _currentTable = "menuproducts";
         }
 
         public void ShowOrders()
         {
             dataGridViewRestaurantManagementSystem.DataSource = null;
-            dataGridViewRestaurantManagementSystem.DataSource = readOrderRepository
+            dataGridViewRestaurantManagementSystem.DataSource = _readOrderRepository
                 .GetAll()
                 .Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Data = x.Date,
-                    Sprzedajacy = readSellerRepository.GetByID(x.SellerID).Name +" "+ readSellerRepository.GetByID(x.SellerID).Surname,
+                    Sprzedajacy = _readSellerRepository.GetByID(x.SellerID).Name + " " + _readSellerRepository.GetByID(x.SellerID).Surname,
                     Cena = x.Price,
                     Kalorie = x.AmountOfCalories,
                 }).ToList();
-            currentTable = "orders";
+            _currentTable = "orders";
         }
 
         //Przyciski usuwające obiekty tabel z bazy danych.
         private void buttonDeleteSelectedSeller_Click(object sender, EventArgs e)
         {
-            string sellerID;
-
-            if ((currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                sellerID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                writeSellerRepository.Delete(readSellerRepository.GetByID(int.Parse(sellerID)));
+                var sellerId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                _writeSellerRepository.Delete(_readSellerRepository.GetByID(int.Parse(sellerId)));
                 ShowSellers();
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby usunąc sprzedawce w pierwszej kolejności musisz jakiegoś wybrać!");
+                MessageBox.Show(@"Aby usunąc sprzedawce w pierwszej kolejności musisz jakiegoś wybrać!");
             }
             ClearTextBoxes();
         }
 
         private void buttonDeleteSelectedSupplier_Click(object sender, EventArgs e)
         {
-            string supplierID;
-
-            if ((currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                supplierID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                writeSupplierRepository.Delete(readSupplierRepository.GetByID(int.Parse(supplierID)));
+                var supplierId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                _writeSupplierRepository.Delete(_readSupplierRepository.GetByID(int.Parse(supplierId)));
                 ShowSuppliers();
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby usunąc dostawce w pierwszej kolejności musisz jakiegoś wybrać!");
+                MessageBox.Show(@"Aby usunąc dostawce w pierwszej kolejności musisz jakiegoś wybrać!");
             }
             ClearTextBoxes();
         }
 
         private void buttonDeleteSelectedSupply_Click(object sender, EventArgs e)
         {
-            string supplyID;
-
-            if ((currentTable == "supplies") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "supplies") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                supplyID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                writeSupplyRepository.Delete(readSupplyRepository.GetByID(int.Parse(supplyID)));
+                var supplyId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                _writeSupplyRepository.Delete(_readSupplyRepository.GetByID(int.Parse(supplyId)));
                 ShowSupplies();
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby usunąc dostawce w pierwszej kolejności musisz jakiegoś wybrać!");
+                MessageBox.Show(@"Aby usunąc dostawce w pierwszej kolejności musisz jakiegoś wybrać!");
             }
             ClearTextBoxes();
         }
 
         private void buttonDeleteSelectedMenuProduct_Click(object sender, EventArgs e)
         {
-            string menuProductID;
-
-            if ((currentTable == "menuproducts") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "menuproducts") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                menuProductID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                writeMenuProductRepository.Delete(readMenuProductRepository.GetByID(int.Parse(menuProductID)));
+                var menuProductId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                _writeMenuProductRepository.Delete(_readMenuProductRepository.GetByID(int.Parse(menuProductId)));
                 ShowMenuProducts();
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby usunąc produkt menu w pierwszej kolejności musisz jakiś wybrać!");
+                MessageBox.Show(@"Aby usunąc produkt menu w pierwszej kolejności musisz jakiś wybrać!");
             }
             ClearTextBoxes();
         }
@@ -371,138 +354,124 @@ namespace KamilCieślikLab4PD
         //Przyciski edytujące obiekty tabel z bazy danych.
         private void buttonEditSelectedSeller_Click(object sender, EventArgs e)
         {
-            string sellerID;
-
-
-            if ((currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                sellerID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                var sellerId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
                 try
                 {
                     Seller seller = new Seller()
                     {
 
-                        ID = int.Parse(sellerID),
+                        ID = int.Parse(sellerId),
                         Name = textBoxSellerName.Text,
                         Surname = textBoxSellerSurname.Text,
                         YearsOfExperience = int.Parse(comboBoxSellerYearsOfExperience.Text),
                         EnglishLevel = comboBoxSellerEnglishLevel.Text,
                         Password = textBoxSellerPassword.Text
-
-
                     };
-                    writeSellerRepository.Edit(readSellerRepository.GetByID(int.Parse(sellerID)), seller);
+                    _writeSellerRepository.Edit(_readSellerRepository.GetByID(int.Parse(sellerId)), seller);
                     ShowSellers();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Błędne/niepełne dane dla edytowanego sprzedawcy!");
+                    MessageBox.Show(@"Błędne/niepełne dane dla edytowanego sprzedawcy!");
                 }
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby edytowac dane sprzedawcy w pierwszej kolejności musisz jakiegoś wybrać!");
+                MessageBox.Show(@"Aby edytowac dane sprzedawcy w pierwszej kolejności musisz jakiegoś wybrać!");
             }
         }
 
         private void buttonEditSelectedSupplier_Click(object sender, EventArgs e)
         {
-            string supplierID;
-
-
-            if ((currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "suppliers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                supplierID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                var supplierId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
                 try
                 {
                     Supplier supplier = new Supplier()
                     {
-                        ID = int.Parse(supplierID),
+                        ID = int.Parse(supplierId),
                         Name = textBoxSupplierName.Text,
                         Localization = comboBoxSupplierLocalization.Text,
                         DeliveryTime = int.Parse(textBoxSupplierDeliveryTime.Text)
                     };
-                    writeSupplierRepository.Edit(readSupplierRepository.GetByID(int.Parse(supplierID)), supplier);
+                    _writeSupplierRepository.Edit(_readSupplierRepository.GetByID(int.Parse(supplierId)), supplier);
                     ShowSuppliers();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Błędne/niepełne dane dla edytowanego dostawcy!");
+                    MessageBox.Show(@"Błędne/niepełne dane dla edytowanego dostawcy!");
                 }
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby edytowac dane dostawcy w pierwszej kolejności musisz jakiegoś wybrać!");
+                MessageBox.Show(@"Aby edytowac dane dostawcy w pierwszej kolejności musisz jakiegoś wybrać!");
             }
         }
 
         private void buttonEditSelectedSupply_Click(object sender, EventArgs e)
         {
-            string supplyID;
-            string providerID;
-
-            if ((currentTable == "supplies") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "supplies") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                supplyID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                providerID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID_Dostawcy"].Value.ToString();
+                var supplyId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                var providerId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID_Dostawcy"].Value.ToString();
                 try
                 {
                     Supply supply = new Supply()
                     {
-                        ID = int.Parse(supplyID),
+                        ID = int.Parse(supplyId),
                         Date = DateTime.Parse(textBoxSupplyDate.Text),
                         OrderedProduct = textBoxSupplyOrderedProduct.Text,
                         Price = int.Parse(textBoxSupplyPrice.Text),
-                        ProviderID = int.Parse(providerID)
+                        ProviderID = int.Parse(providerId)
                     };
-                    writeSupplyRepository.Edit(readSupplyRepository.GetByID(int.Parse(supplyID)), supply);
+                    _writeSupplyRepository.Edit(_readSupplyRepository.GetByID(int.Parse(supplyId)), supply);
                     ShowSupplies();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Błędne/niepełne dane dla edytowanej dostawy!");
+                    MessageBox.Show(@"Błędne/niepełne dane dla edytowanej dostawy!");
                 }
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby edytowac dane dostawy w pierwszej kolejności musisz jakąś wybrać!");
+                MessageBox.Show(@"Aby edytowac dane dostawy w pierwszej kolejności musisz jakąś wybrać!");
             }
         }
 
 
         private void buttonEditSelectedProductMenu_Click(object sender, EventArgs e)
         {
-            string menuProductID;
-
-
-            if ((currentTable == "menuproducts") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "menuproducts") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                menuProductID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                var menuProductId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
                 try
                 {
                     MenuProduct menuProduct = new MenuProduct()
                     {
-                        ID = int.Parse(menuProductID),
+                        ID = int.Parse(menuProductId),
                         Category = comboBoxMenuProductCategory.Text,
                         Name = textBoxMenuProductName.Text,
                         AmountOfCalories = int.Parse(textBoxMenuProductAmountOfCalories.Text),
                         Price = int.Parse(textBoxMenuProductPrice.Text)
                     };
-                    writeMenuProductRepository.Edit(readMenuProductRepository.GetByID(int.Parse(menuProductID)), menuProduct);
+                    _writeMenuProductRepository.Edit(_readMenuProductRepository.GetByID(int.Parse(menuProductId)), menuProduct);
                     ShowMenuProducts();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Błędne/niepełne dane dla edytowanego dostawcy!");
+                    MessageBox.Show(@"Błędne/niepełne dane dla edytowanego dostawcy!");
                 }
                 ClearTextBoxes();
             }
             else
             {
-                MessageBox.Show("Aby edytowac dane produktu menu w pierwszej kolejności musisz jakiś wybrać!");
+                MessageBox.Show(@"Aby edytowac dane produktu menu w pierwszej kolejności musisz jakiś wybrać!");
             }
         }
 
@@ -511,15 +480,15 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxSellersSortBy.SelectedIndex != -1)
             {
-                string option = comboBoxSellersSortBy.Text;
+                var option = comboBoxSellersSortBy.Text;
                 dataGridViewRestaurantManagementSystem.DataSource = null;
 
                 switch (option)
                 {
                     case "Name":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository.GetAll().OrderBy(x => x.Name).ThenBy(x => x.Surname).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository.GetAll().OrderBy(x => x.Name).ThenBy(x => x.Surname).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Imie_Sprzedawcy = x.Name,
                             Nazwisko = x.Surname,
                             Lata_Doswiadczenia = x.YearsOfExperience,
@@ -527,9 +496,9 @@ namespace KamilCieślikLab4PD
                         }).ToList();
                         break;
                     case "YearsOfExperience":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository.GetAll().OrderBy(x => x.YearsOfExperience).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository.GetAll().OrderBy(x => x.YearsOfExperience).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Imie_Sprzedawcy = x.Name,
                             Nazwisko = x.Surname,
                             Lata_Doswiadczenia = x.YearsOfExperience,
@@ -537,9 +506,9 @@ namespace KamilCieślikLab4PD
                         }).ToList();
                         break;
                     case "EnglishLevel":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository.GetAll().OrderBy(x => x.EnglishLevel).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository.GetAll().OrderBy(x => x.EnglishLevel).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Imie_Sprzedawcy = x.Name,
                             Nazwisko = x.Surname,
                             Lata_Doswiadczenia = x.YearsOfExperience,
@@ -550,7 +519,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby posortować dane sprzedawców w pierwszej kolejności musisz wybrać rodzaj sortowania!");
+                MessageBox.Show(@"Aby posortować dane sprzedawców w pierwszej kolejności musisz wybrać rodzaj sortowania!");
             }
         }
 
@@ -558,15 +527,15 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxSuppliersSortBy.SelectedIndex != -1)
             {
-                string option = comboBoxSuppliersSortBy.Text;
+                var option = comboBoxSuppliersSortBy.Text;
                 dataGridViewRestaurantManagementSystem.DataSource = null;
 
                 switch (option)
                 {
                     case "Name":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository.GetAll().OrderBy(x => x.Name).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository.GetAll().OrderBy(x => x.Name).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Nazwa = x.Name,
                             Lokalizacja = x.Localization,
                             Czas_Dostaw = x.DeliveryTime,
@@ -574,9 +543,9 @@ namespace KamilCieślikLab4PD
                         break;
 
                     case "Localization":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository.GetAll().OrderBy(x => x.Localization).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository.GetAll().OrderBy(x => x.Localization).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Nazwa = x.Name,
                             Lokalizacja = x.Localization,
                             Czas_Dostaw = x.DeliveryTime,
@@ -584,30 +553,29 @@ namespace KamilCieślikLab4PD
                         break;
 
                     case "DeliveryTime":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository.GetAll().OrderBy(x => x.DeliveryTime).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository.GetAll().OrderBy(x => x.DeliveryTime).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Nazwa = x.Name,
                             Lokalizacja = x.Localization,
                             Czas_Dostaw = x.DeliveryTime,
                         }).ToList();
                         break;
-
                 }
             }
             else
             {
-                MessageBox.Show("Aby posortować dane dostawców w pierwszej kolejności musisz wybrać rodzaj sortowania!");
+                MessageBox.Show(@"Aby posortować dane dostawców w pierwszej kolejności musisz wybrać rodzaj sortowania!");
             }
         }
 
         private void buttonOrdersSortByPrice_Click(object sender, EventArgs e)
         {
-            dataGridViewRestaurantManagementSystem.DataSource = readOrderRepository.GetAll().OrderBy(x => x.Price).Select(x => new
+            dataGridViewRestaurantManagementSystem.DataSource = _readOrderRepository.GetAll().OrderBy(x => x.Price).Select(x => new
             {
-                ID = x.ID,
+                x.ID,
                 Data = x.Date,
-                Sprzedajacy = readSellerRepository.GetByID(x.SellerID).Name + " " + readSellerRepository.GetByID(x.SellerID).Surname,
+                Sprzedajacy = _readSellerRepository.GetByID(x.SellerID).Name + " " + _readSellerRepository.GetByID(x.SellerID).Surname,
                 Cena = x.Price,
                 Kalorie = x.AmountOfCalories,
             }).ToList();
@@ -615,11 +583,11 @@ namespace KamilCieślikLab4PD
 
         private void buttonOrdersSortByAmountOfCalories_Click(object sender, EventArgs e)
         {
-            dataGridViewRestaurantManagementSystem.DataSource = readOrderRepository.GetAll().OrderBy(x => x.AmountOfCalories).Select(x => new
+            dataGridViewRestaurantManagementSystem.DataSource = _readOrderRepository.GetAll().OrderBy(x => x.AmountOfCalories).Select(x => new
             {
-                ID = x.ID,
+                x.ID,
                 Data = x.Date,
-                Sprzedajacy = readSellerRepository.GetByID(x.SellerID).Name + " " + readSellerRepository.GetByID(x.SellerID).Surname,
+                Sprzedajacy = _readSellerRepository.GetByID(x.SellerID).Name + " " + _readSellerRepository.GetByID(x.SellerID).Surname,
                 Cena = x.Price,
                 Kalorie = x.AmountOfCalories,
             }).ToList();
@@ -629,65 +597,64 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxSuppliesSortBy.SelectedIndex != -1)
             {
-                string option = comboBoxSuppliesSortBy.Text;
+                var option = comboBoxSuppliesSortBy.Text;
                 dataGridViewRestaurantManagementSystem.DataSource = null;
 
                 switch (option)
                 {
                     case "Date":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository.GetAll().OrderBy(x => x.Date).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository.GetAll().OrderBy(x => x.Date).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Data_Zamowienia = x.Date,
                             Zamowiony_Produkt = x.OrderedProduct,
                             Cena = x.Price,
-                            Dostawca = readSupplierRepository.GetByID(x.ProviderID).Name
+                            Dostawca = _readSupplierRepository.GetByID(x.ProviderID).Name
                         }).ToList();
                         break;
 
                     case "OrderedProduct":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository.GetAll().OrderBy(x => x.OrderedProduct).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository.GetAll().OrderBy(x => x.OrderedProduct).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Data_Zamowienia = x.Date,
                             Zamowiony_Produkt = x.OrderedProduct,
                             Cena = x.Price,
-                            Dostawca = readSupplierRepository.GetByID(x.ProviderID).Name
+                            Dostawca = _readSupplierRepository.GetByID(x.ProviderID).Name
                         }).ToList();
                         break;
 
                     case "Price":
-                        dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository.GetAll().OrderBy(x => x.Price).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository.GetAll().OrderBy(x => x.Price).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Data_Zamowienia = x.Date,
                             Zamowiony_Produkt = x.OrderedProduct,
                             Cena = x.Price,
-                            Dostawca = readSupplierRepository.GetByID(x.ProviderID).Name
+                            Dostawca = _readSupplierRepository.GetByID(x.ProviderID).Name
                         }).ToList();
                         break;
                 }
             }
             else
             {
-                MessageBox.Show("Aby posortować dane dostaw w pierwszej kolejności musisz wybrać rodzaj sortowania!");
+                MessageBox.Show(@"Aby posortować dane dostaw w pierwszej kolejności musisz wybrać rodzaj sortowania!");
             }
         }
 
         private void buttonMenuProductsSortBy_Click(object sender, EventArgs e)
         {
-
             if (comboBoxMenuProductsSortBy.SelectedIndex != -1)
             {
-                string option = comboBoxMenuProductsSortBy.Text;
+                var option = comboBoxMenuProductsSortBy.Text;
                 dataGridViewRestaurantManagementSystem.DataSource = null;
 
                 switch (option)
                 {
                     case "Category":
-                        dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().OrderBy(x => x.Category).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().OrderBy(x => x.Category).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Kategoria = x.Category,
                             Nazwa = x.Name,
                             Ilosc_Kcal = x.AmountOfCalories,
@@ -696,9 +663,9 @@ namespace KamilCieślikLab4PD
                         break;
 
                     case "Name":
-                        dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().OrderBy(x => x.Name).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().OrderBy(x => x.Name).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Kategoria = x.Category,
                             Nazwa = x.Name,
                             Ilosc_Kcal = x.AmountOfCalories,
@@ -707,9 +674,9 @@ namespace KamilCieślikLab4PD
                         break;
 
                     case "AmountOfCalories":
-                        dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().OrderBy(x => x.AmountOfCalories).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().OrderBy(x => x.AmountOfCalories).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Kategoria = x.Category,
                             Nazwa = x.Name,
                             Ilosc_Kcal = x.AmountOfCalories,
@@ -717,9 +684,9 @@ namespace KamilCieślikLab4PD
                         }).ToList();
                         break;
                     case "Price":
-                        dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().OrderBy(x => x.Price).Select(x => new
+                        dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().OrderBy(x => x.Price).Select(x => new
                         {
-                            ID = x.ID,
+                            x.ID,
                             Kategoria = x.Category,
                             Nazwa = x.Name,
                             Ilosc_Kcal = x.AmountOfCalories,
@@ -730,22 +697,21 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby posortować dane produktów menu w pierwszej kolejności musisz wybrać rodzaj sortowania!");
+                MessageBox.Show(@"Aby posortować dane produktów menu w pierwszej kolejności musisz wybrać rodzaj sortowania!");
             }
         }
 
         //Przyciski do wyświetlania obiektów tabel z bazy danych po wskazanym wzorcu.
         private void buttonShowBySellerYearsOfExperience_Click(object sender, EventArgs e)
         {
-
             if (comboBoxShowBySellerYearsOfExperience.SelectedIndex != -1)
             {
-                string option = comboBoxShowBySellerYearsOfExperience.Text;
+                var option = comboBoxShowBySellerYearsOfExperience.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository.GetAll().Where(x => x.YearsOfExperience == int.Parse(option)).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository.GetAll().Where(x => x.YearsOfExperience == int.Parse(option)).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Imie_Sprzedawcy = x.Name,
                     Nazwisko = x.Surname,
                     Lata_Doswiadczenia = x.YearsOfExperience,
@@ -754,7 +720,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednich sprzedawców w pierwszej kolejności musisz wybrać wzorzec!");
+                MessageBox.Show(@"Aby wypisać odpowiednich sprzedawców w pierwszej kolejności musisz wybrać wzorzec!");
             }
         }
 
@@ -762,12 +728,12 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxShowBySellerEnglishLevel.SelectedIndex != -1)
             {
-                string option = comboBoxShowBySellerEnglishLevel.Text;
+                var option = comboBoxShowBySellerEnglishLevel.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSellerRepository.GetAll().Where(x => x.EnglishLevel == option).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSellerRepository.GetAll().Where(x => x.EnglishLevel == option).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Imie_Sprzedawcy = x.Name,
                     Nazwisko = x.Surname,
                     Lata_Doswiadczenia = x.YearsOfExperience,
@@ -776,7 +742,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednich sprzedawców w pierwszej kolejności musisz wybrać wzorzec!");
+                MessageBox.Show(@"Aby wypisać odpowiednich sprzedawców w pierwszej kolejności musisz wybrać wzorzec!");
             }
         }
 
@@ -784,12 +750,12 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxShowBySupplierLocalization.SelectedIndex != -1)
             {
-                string option = comboBoxShowBySupplierLocalization.Text;
+                var option = comboBoxShowBySupplierLocalization.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository.GetAll().Where(x => x.Localization == option).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository.GetAll().Where(x => x.Localization == option).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Nazwa = x.Name,
                     Lokalizacja = x.Localization,
                     Czas_Dostaw = x.DeliveryTime,
@@ -797,7 +763,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednich dostawców w pierwszej kolejności musisz wybrać wzorzec!");
+                MessageBox.Show(@"Aby wypisać odpowiednich dostawców w pierwszej kolejności musisz wybrać wzorzec!");
             }
         }
 
@@ -805,12 +771,12 @@ namespace KamilCieślikLab4PD
         {
             if (comboBoxShowByMenuProductCategory.SelectedIndex != -1)
             {
-                string option = comboBoxShowByMenuProductCategory.Text;
+                var option = comboBoxShowByMenuProductCategory.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().Where(x => x.Category == option).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().Where(x => x.Category == option).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Kategoria = x.Category,
                     Nazwa = x.Name,
                     Ilosc_Kcal = x.AmountOfCalories,
@@ -819,7 +785,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz wybrać wzorzec!");
+                MessageBox.Show(@"Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz wybrać wzorzec!");
             }
         }
 
@@ -827,12 +793,12 @@ namespace KamilCieślikLab4PD
         {
             if (textBoxSearchSupplyByOrderedProduct.Text != "")
             {
-                string option = textBoxSearchSupplyByOrderedProduct.Text;
+                var option = textBoxSearchSupplyByOrderedProduct.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository.GetAll().Where(x => x.OrderedProduct.Contains(option)).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository.GetAll().Where(x => x.OrderedProduct.Contains(option)).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Data_Zamowienia = x.Date,
                     Zamowiony_Produkt = x.OrderedProduct,
                     Cena = x.Price,
@@ -841,7 +807,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz wybrać wzorzec!");
+                MessageBox.Show(@"Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz wybrać wzorzec!");
             }
         }
 
@@ -850,13 +816,13 @@ namespace KamilCieślikLab4PD
         {
             if ((textBoxSupplierDeliveryTimeFrom.Text != "") && (textBoxSupplierDeliveryTimeTo.Text != ""))
             {
-                string from = textBoxSupplierDeliveryTimeFrom.Text;
-                string to = textBoxSupplierDeliveryTimeTo.Text;
+                var from = textBoxSupplierDeliveryTimeFrom.Text;
+                var to = textBoxSupplierDeliveryTimeTo.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSupplierRepository.GetAll().Where(x => x.DeliveryTime >= int.Parse(from) && x.DeliveryTime <= int.Parse(to)).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSupplierRepository.GetAll().Where(x => x.DeliveryTime >= int.Parse(from) && x.DeliveryTime <= int.Parse(to)).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Nazwa = x.Name,
                     Lokalizacja = x.Localization,
                     Czas_Dostaw = x.DeliveryTime,
@@ -864,7 +830,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednich dostawców w pierwszej kolejności musisz podać przedział!");
+                MessageBox.Show(@"Aby wypisać odpowiednich dostawców w pierwszej kolejności musisz podać przedział!");
             }
         }
 
@@ -872,13 +838,13 @@ namespace KamilCieślikLab4PD
         {
             if ((textBoxSuppliesPriceFrom.Text != "") && (textBoxSuppliesPriceTo.Text != ""))
             {
-                string from = textBoxSuppliesPriceFrom.Text;
-                string to = textBoxSuppliesPriceTo.Text;
+                var from = textBoxSuppliesPriceFrom.Text;
+                var to = textBoxSuppliesPriceTo.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readSupplyRepository.GetAll().Where(x => x.Price >= int.Parse(from) && x.Price <= int.Parse(to)).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readSupplyRepository.GetAll().Where(x => x.Price >= int.Parse(from) && x.Price <= int.Parse(to)).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Data_Zamowienia = x.Date,
                     Zamowiony_Produkt = x.OrderedProduct,
                     Cena = x.Price,
@@ -887,7 +853,7 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednie dostawy w pierwszej kolejności musisz podać przedział!");
+                MessageBox.Show(@"Aby wypisać odpowiednie dostawy w pierwszej kolejności musisz podać przedział!");
             }
         }
 
@@ -895,13 +861,13 @@ namespace KamilCieślikLab4PD
         {
             if ((textBoxMenuProductPriceTimeFrom.Text != "") && (textBoxMenuProductPriceTimeTo.Text != ""))
             {
-                string from = textBoxMenuProductPriceTimeFrom.Text;
-                string to = textBoxMenuProductPriceTimeTo.Text;
+                var from = textBoxMenuProductPriceTimeFrom.Text;
+                var to = textBoxMenuProductPriceTimeTo.Text;
 
                 dataGridViewRestaurantManagementSystem.DataSource = null;
-                dataGridViewRestaurantManagementSystem.DataSource = readMenuProductRepository.GetAll().Where(x => x.Price >= int.Parse(from) && x.Price <= int.Parse(to)).Select(x => new
+                dataGridViewRestaurantManagementSystem.DataSource = _readMenuProductRepository.GetAll().Where(x => x.Price >= int.Parse(from) && x.Price <= int.Parse(to)).Select(x => new
                 {
-                    ID = x.ID,
+                    x.ID,
                     Kategoria = x.Category,
                     Nazwa = x.Name,
                     Ilosc_Kcal = x.AmountOfCalories,
@@ -910,79 +876,72 @@ namespace KamilCieślikLab4PD
             }
             else
             {
-                MessageBox.Show("Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz podać przedział!");
+                MessageBox.Show(@"Aby wypisać odpowiednie produkty menu w pierwszej kolejności musisz podać przedział!");
             }
         }
 
         //Logowanie do panelu sprzedawcy. W panelu sprzedawcy możliwość realizowania zamówień.
         private void buttonLogInToCash_Click(object sender, EventArgs e)
         {
-            string sellerID;
-
-
-            if ((currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
+            if ((_currentTable == "sellers") && (dataGridViewRestaurantManagementSystem.SelectedRows.Count > 0))
             {
-                sellerID = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
-                if (readSellerRepository.GetByID(int.Parse(sellerID)).Password == textBoxEnterSellerPassword.Text)
+                var sellerId = dataGridViewRestaurantManagementSystem.SelectedRows[0].Cells["ID"].Value.ToString();
+                if (_readSellerRepository.GetByID(int.Parse(sellerId)).Password == textBoxEnterSellerPassword.Text)
                 {
-                    FormSellerPanel formSellerPanel = new FormSellerPanel(readSellerRepository.GetByID(int.Parse(sellerID)), context, readMenuProductRepository, writeOrderRepository);
-                    this.Visible = false;
+                    var formSellerPanel = new FormSellerPanel(_readSellerRepository.GetByID(int.Parse(sellerId)), _context, _readMenuProductRepository, _writeOrderRepository);
+                    Visible = false;
                     formSellerPanel.ShowDialog();
-                    if (formSellerPanel.IsAccessible == false)
-                    {
-                        Visible = true;
-                        ClearTextBoxes();
-                    }
+                    if (formSellerPanel.IsAccessible) return;
+                    Visible = true;
+                    ClearTextBoxes();
                 }
 
                 else
                 {
-                    MessageBox.Show("Wprowadz poprawne haslo!");
+                    MessageBox.Show(@"Wprowadz poprawne haslo!");
                 }
-
             }
             else
             {
-                MessageBox.Show("Aby zalogować się do kasy w pierwszej kolejności wybierz sprzedawcę!");
+                MessageBox.Show(@"Aby zalogować się do kasy w pierwszej kolejności wybierz sprzedawcę!");
             }
-
         }
 
         //Przyciski obliczające statystyki.
         private void buttonSumProfit_Click(object sender, EventArgs e)
         {
-            int tmp = readOrderRepository.GetAll().Sum(x => x.Price);
+            var tmp = _readOrderRepository.GetAll().Sum(x => x.Price);
             labelProfit.Text = tmp.ToString();
-               
+
         }
 
         private void buttonSumCostOfSupplies_Click(object sender, EventArgs e)
         {
-            int tmp = readSupplyRepository.GetAll().Sum(x => x.Price);
+            var tmp = _readSupplyRepository.GetAll().Sum(x => x.Price);
             labelCostOfSupplies.Text = tmp.ToString();
         }
 
         private void buttonSumGain_Click(object sender, EventArgs e)
         {
-            int tmp = readOrderRepository.GetAll().Sum(x => x.Price) - readSupplyRepository.GetAll().Sum(x => x.Price);
+            var tmp = _readOrderRepository.GetAll().Sum(x => x.Price) - _readSupplyRepository.GetAll().Sum(x => x.Price);
             labelGain.Text = tmp.ToString();
         }
 
         private void buttonAvgDeliveryTime_Click(object sender, EventArgs e)
         {
-            double tmp = readSupplierRepository.GetAll().Average(x => x.DeliveryTime);
+            var tmp = _readSupplierRepository.GetAll().Average(x => x.DeliveryTime);
             labelAverageDeliveryTime.Text = tmp.ToString("#.##");
         }
 
         private void buttonMaxMostExpensiveOrder_Click(object sender, EventArgs e)
         {
-            int tmp = readOrderRepository.GetAll().Max(x => x.Price);
+            var tmp = _readOrderRepository.GetAll().Max(x => x.Price);
             labelMostExpensiveOrder.Text = tmp.ToString();
         }
 
         private void buttonAvgYearsOfExperience_Click(object sender, EventArgs e)
         {
-            double tmp = readSellerRepository.GetAll().Average(x => x.YearsOfExperience);
+            var tmp = _readSellerRepository.GetAll().Average(x => x.YearsOfExperience);
             labelAverageYearsOfExperience.Text = tmp.ToString("#.##");
         }
     }

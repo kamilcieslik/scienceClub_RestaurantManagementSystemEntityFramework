@@ -1,13 +1,8 @@
 ﻿using KamilCieślikLab4PD.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace KamilCieślikLab4PD.Repository.Interfaces
+namespace KamilCieślikLab4PD.Repository.Commands.Interfaces
 {
-    public interface IWriteRepository<T> where T :Entity
+    public interface IWriteRepository<in T> where T :Entity
     {
         void Create(T entity);
         void Delete(T entity);

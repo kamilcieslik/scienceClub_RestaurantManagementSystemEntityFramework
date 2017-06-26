@@ -1,11 +1,7 @@
-﻿using KamilCieślikLab4PD.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using KamilCieślikLab4PD.Model;
 
-namespace KamilCieślikLab4PD.Repository.Interfaces
+namespace KamilCieślikLab4PD.Repository.Queries.Interfaces
 {
     public interface IReadRepository<T> where T :Entity
     {

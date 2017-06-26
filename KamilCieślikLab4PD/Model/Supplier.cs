@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace KamilCieślikLab4PD.Model
 {
@@ -14,8 +9,6 @@ namespace KamilCieślikLab4PD.Model
         [Required]
         public string Localization { get; set; }
         [Required]
-        public int DeliveryTime { get; set; }
-
-        
+        public int DeliveryTime { get; set; }   
     }
 }
