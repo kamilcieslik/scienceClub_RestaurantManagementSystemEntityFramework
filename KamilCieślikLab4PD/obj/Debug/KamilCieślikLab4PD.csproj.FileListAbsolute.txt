@@ -1,0 +1,57 @@
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe.config
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.pdb
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csprojResolveAssemblyReference.cache
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Properties.Resources.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csproj.GenerateResource.Cache
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.exe
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.pdb
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.dll
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.xml
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.MainFrame.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._1.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.FormSellerPanel.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._2.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._3.resources
+C:\Users\Kamil Cieślik\Desktop\elo\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._4.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe.config
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.exe
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.pdb
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.pdb
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.dll
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.dll
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.xml
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.xml
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.FormSellerPanel.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.MainFrame.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._1.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._2.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._3.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._4.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Properties.Resources.resources
+D:\Visual Studio 2015\Projects\kredek\kamil_cieslik\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csproj.GenerateResource.Cache
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe.config
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.exe
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.pdb
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.pdb
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.dll
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.dll
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.xml
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\bin\Debug\EntityFramework.SqlServer.xml
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.FormSellerPanel.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.MainFrame.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._1.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._2.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._3.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Migrations._4.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.Properties.Resources.resources
+D:\Visual Studio 2015\Projects\kredek\kredek\lab4\zadanie domowe\KamilCieślikLab4PD\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.csproj.GenerateResource.Cache
+D:\Projects\C#\scienceClub_RestaurantManagementSystemEntityFramework\KamilCieślikLab4PD\bin\Debug\KamilCieślikLab4PD.exe.config
+D:\Projects\C#\scienceClub_RestaurantManagementSystemEntityFramework\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.exe
+D:\Projects\C#\scienceClub_RestaurantManagementSystemEntityFramework\KamilCieślikLab4PD\obj\Debug\KamilCieślikLab4PD.pdb
